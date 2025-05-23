@@ -39,6 +39,7 @@ Thumbs.db
 *.tar.gz
 *.rar
 wildfire_project/raw_data/
+wildfire_project/data/
 
 # ==========================
 # Model Checkpoints
