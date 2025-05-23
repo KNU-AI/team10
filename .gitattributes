@@ -1,0 +1,5 @@
+# 모든 텍스트 파일에 대해 자동으로 줄바꿈 변환
+* text=auto
+
+# .idea 폴더 내부 파일들은 LF로 강제 변환
+.idea/** text eol=lf
