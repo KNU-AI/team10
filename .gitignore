@@ -1,0 +1,65 @@
+# ==========================
+# PyCharm & Python Settings
+# ==========================
+.idea/
+*.iml
+
+# ==========================
+# Virtual Environment
+# ==========================
+.venv/
+venv/
+env/
+
+# ==========================
+# Python Cache / Compiled
+# ==========================
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+
+# ==========================
+# Jupyter & Logs
+# ==========================
+.ipynb_checkpoints/
+*.log
+*.out
+
+# ==========================
+# OS / Miscellaneous
+# ==========================
+.DS_Store
+Thumbs.db
+
+# ==========================
+# Dataset Archives & Temp
+# ==========================
+*.zip
+*.tar.gz
+*.rar
+wildfire_project/raw_data/
+wildfire_project/data/
+
+# ==========================
+# Model Checkpoints
+# ==========================
+*.ckpt
+*.pt
+*.pth
+runs/
+checkpoints/
+
+# ==========================
+# Temporary Files
+# ==========================
+*.tmp
+*.bak
+*.swp
+
+# ==========================
+# Output or Preprocessed Data
+# ==========================
+data/train/
+data/val/
+data/test/
