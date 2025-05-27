@@ -1,6 +1,8 @@
 import os
 import torch # pip install torch torchvision
 
+print("[CONFIG] Loading configuration...")
+
 # 프로젝트 루트
 PROJECT_ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
@@ -18,3 +20,6 @@ NUM_CLASSES = 3
 
 # 장비
 DEVICE = torch.device("cuda" if torch.cuda.is_available() else "cpu")
+
+print(f"[CONFIG] Device set to: {DEVICE}")
+print(f"[CONFIG] Project root: {PROJECT_ROOT}")
