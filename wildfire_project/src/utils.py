@@ -7,6 +7,7 @@ import numpy as np
 def get_dataloaders(val_ratio=0.2):
     print("[UTILS] Loading dataset with train/val split...")
 
+    ## RandomHorizontalFlip(), RandomRotation(15)
     transform = transforms.Compose([
         transforms.Resize((224, 224)),
         transforms.RandomHorizontalFlip(),
@@ -21,6 +22,7 @@ def get_dataloaders(val_ratio=0.2):
     indices = np.arange(len(full_dataset))
     labels = [label for _, label in full_dataset.samples]
 
+    ## train_test_split
     train_idx, val_idx = train_test_split(
         indices, test_size=val_ratio, stratify=labels, random_state=42
     )
