@@ -1,5 +1,5 @@
 import os
-import torch # pip install torch torchvision
+import torch
 
 print("[CONFIG] Loading configuration...")
 
@@ -17,6 +17,11 @@ BATCH_SIZE = 32
 EPOCHS = 10
 LEARNING_RATE = 1e-4
 NUM_CLASSES = 3
+
+# Focal Loss 설정 (클래스별 alpha 비율 맞추기)
+# fire: 6772, normal: 950, smoke: 5867 -> 비율 역수로 class별 가중치 줄 수 있음
+FOCAL_GAMMA = 2.0
+FOCAL_ALPHA = [3.0, 1.0, 2.0]  # fire=3.0 가장중요, normal=1.0 기본값 유지, smoke=2.0 어느정도 중요
 
 # 장비
 DEVICE = torch.device("cuda" if torch.cuda.is_available() else "cpu")
