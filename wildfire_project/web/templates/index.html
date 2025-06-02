@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="refresh" content="10" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Wildfire Classification</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            background-color: #f8f8f8;
+        }
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+        .image-grid {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 20px;
+            margin-top: 20px;
+        }
+        .image-card {
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 0 8px rgba(0,0,0,0.1);
+            width: 250px;
+            padding: 15px;
+            text-align: center;
+            position: relative;
+        }
+        .image-card img {
+            width: 220px;
+            height: 220px;
+            object-fit: cover;
+            border-radius: 4px;
+        }
+        .info {
+            margin-top: 10px;
+            font-size: 14px;
+            color: #555;
+        }
+        .info strong {
+            color: #222;
+        }
+        .indicator-bar {
+            width: 100%;
+            height: 10px;
+            border-radius: 0 0 8px 8px;
+            margin-top: 10px;
+        }
+        .fire-bar {
+            background-color: red;
+        }
+        .smoke-bar {
+            background-color: orange;
+        }
+        .normal-bar {
+            background-color: transparent;
+        }
+    </style>
+</head>
+<body>
+    <h1>Wildfire Image Classification</h1>
+    <p style="text-align:center;">Automatically refreshed every 10 seconds</p>
+
+    <div class="image-grid">
+        {% for img in images %}
+        <div class="image-card">
+            <img src="{{ url_for('serve_test_image', cls=img.cls_folder, filename=img.filename) }}" alt="Test Image" />
+
+            <div class="info">
+                <!-- 개발용: 실제값 + 예측값 -->
+
+                <div>True Class: <strong>{{ img.true_cls }}</strong></div>
+                <div>Predicted: <strong>{{ img.pred }}</strong></div>
+                <div>Confidence: <strong>{{ img.conf }}</strong></div>
+
+
+                <!-- 서비스용: 예측값만 표시 -->
+                <!--
+                <div>Predicted: <strong>{{ img.pred }}</strong></div>
+                <div>Confidence: <strong>{{ img.conf }}</strong></div>
+                -->
+            </div>
+
+            <!--  색상 표시 바  -->
+            <div class="indicator-bar
+                {% if img.pred == 'fire' %} fire-bar
+                {% elif img.pred == 'smoke' %} smoke-bar
+                {% else %} normal-bar
+                {% endif %}">
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</body>
+</html>
