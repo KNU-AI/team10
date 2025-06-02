@@ -66,4 +66,12 @@ def train():
         print(f"[TRAIN] Epoch {epoch+1} Complete - Loss: {total_loss:.4f}, Accuracy: {acc:.4f}")
 
     print("[TRAIN] Training finished.")
+
+    # 학습이 끝난 후 모델을 파일로 저장하는 코드 추가
+    import os
+    save_path = os.path.join("model", "model.pth")
+    os.makedirs("model", exist_ok=True)
+    torch.save(model.state_dict(), save_path)
+    print(f"[TRAIN] Model saved to {save_path}")
+
     return model
