@@ -1,9 +1,9 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8" />
-    <meta http-equiv="refresh" content="10" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta charset="UTF-8"/>
+    <meta http-equiv="refresh" content="10"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <title>Wildfire Classification</title>
     <style>
         body {
@@ -63,38 +63,65 @@
     </style>
 </head>
 <body>
-    <h1>Wildfire Image Classification</h1>
-    <p style="text-align:center;">Automatically refreshed every 10 seconds</p>
+<!--    <h1>Wildfire Image Classification</h1>-->
+<!--    <p style="text-align:center;">Automatically refreshed every 10 seconds</p>-->
 
-    <div class="image-grid">
-        {% for img in images %}
-        <div class="image-card">
-            <img src="{{ url_for('serve_test_image', cls=img.cls_folder, filename=img.filename) }}" alt="Test Image" />
+<!--    <div class="image-grid">-->
+<!--        {% for img in images %}-->
+<!--        <div class="image-card">-->
+<!--            <img src="{{ url_for('serve_test_image', cls=img.cls_folder, filename=img.filename) }}" alt="Test Image" />-->
 
-            <div class="info">
-                <!-- 개발용: 실제값 + 예측값 -->
+<!--            <div class="info">-->
+<!--                &lt;!&ndash; 개발용: 실제값 + 예측값 &ndash;&gt;-->
 
-                <div>True Class: <strong>{{ img.true_cls }}</strong></div>
-                <div>Predicted: <strong>{{ img.pred }}</strong></div>
-                <div>Confidence: <strong>{{ img.conf }}</strong></div>
+<!--                <div>True Class: <strong>{{ img.true_cls }}</strong></div>-->
+<!--                <div>Predicted: <strong>{{ img.pred }}</strong></div>-->
+<!--                <div>Confidence: <strong>{{ img.conf }}</strong></div>-->
 
 
-                <!-- 서비스용: 예측값만 표시 -->
-                <!--
-                <div>Predicted: <strong>{{ img.pred }}</strong></div>
-                <div>Confidence: <strong>{{ img.conf }}</strong></div>
-                -->
-            </div>
+<!--                &lt;!&ndash; 서비스용: 예측값만 표시 &ndash;&gt;-->
+<!--                &lt;!&ndash;-->
+<!--                <div>Predicted: <strong>{{ img.pred }}</strong></div>-->
+<!--                <div>Confidence: <strong>{{ img.conf }}</strong></div>-->
+<!--                &ndash;&gt;-->
+<!--            </div>-->
 
-            <!--  색상 표시 바  -->
-            <div class="indicator-bar
-                {% if img.pred == 'fire' %} fire-bar
-                {% elif img.pred == 'smoke' %} smoke-bar
-                {% else %} normal-bar
-                {% endif %}">
-            </div>
+<!--            &lt;!&ndash;  색상 표시 바  &ndash;&gt;-->
+<!--            <div class="indicator-bar-->
+<!--                {% if img.pred == 'fire' %} fire-bar-->
+<!--                {% elif img.pred == 'smoke' %} smoke-bar-->
+<!--                {% else %} normal-bar-->
+<!--                {% endif %}">-->
+<!--            </div>-->
+<!--        </div>-->
+<!--        {% endfor %}-->
+<h1>Wildfire Image Classification</h1>
+<p style="text-align:center;">Automatically refreshed every 10 seconds</p>
+
+{% for cls, images in grouped_images.items() %}
+<h2 style="margin-top: 40px;">Class: {{ cls.capitalize() }}</h2>
+<div class="image-grid">
+    {% for img in images %}
+    <div class="image-card">
+        <div style="position:absolute; top:5px; left:5px; background:#eee; padding:2px 6px; border-radius:4px; font-size:12px;">
+            {{ img.zone }}
         </div>
-        {% endfor %}
+        <img src="{{ url_for('serve_test_image', cls=img.cls_folder, filename=img.filename) }}" alt="Test Image"/>
+        <div class="info">
+            <div>True Class: <strong>{{ img.true_cls }}</strong></div>
+            <div>Predicted: <strong>{{ img.pred }}</strong></div>
+            <div>Confidence: <strong>{{ img.conf }}</strong></div>
+        </div>
+        <div class="indicator-bar
+            {% if img.pred == 'fire' %} fire-bar
+            {% elif img.pred == 'smoke' %} smoke-bar
+            {% else %} normal-bar
+            {% endif %}"></div>
     </div>
+    {% endfor %}
+</div>
+{% endfor %}
+
+</div>
 </body>
 </html>
