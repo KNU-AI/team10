@@ -1,5 +1,7 @@
 import torch
 from torch import nn, optim
+
+from . import model
 from .config import DEVICE, EPOCHS, LEARNING_RATE, FOCAL_GAMMA, FOCAL_ALPHA
 from .utils import get_dataloaders
 from .model import get_model
@@ -36,7 +38,7 @@ class FocalLoss(nn.Module):
 # ===== Training 함수 =====
 def train():
     print("[TRAIN] Preparing training...")
-    model = get_model()
+    model = get_model().to(DEVICE)
     train_loader, val_loader, _, class_names = get_dataloaders()
 
     # 클래스 불균형 대응 focal loss 사용
@@ -64,6 +66,19 @@ def train():
 
         acc = correct / len(train_loader.dataset)
         print(f"[TRAIN] Epoch {epoch+1} Complete - Loss: {total_loss:.4f}, Accuracy: {acc:.4f}")
+
+        # === Validation Loop ===
+        model.eval()
+        val_correct, val_total = 0, 0
+        with torch.no_grad():
+            for images, labels in val_loader:
+                images, labels = images.to(DEVICE), labels.to(DEVICE)
+                outputs = model(images)
+                preds = outputs.argmax(1)
+                val_correct += (preds == labels).sum().item()
+                val_total += labels.size(0)
+        val_acc = val_correct / val_total
+        print(f"[VALID] Validation Accuracy: {val_acc:.4f}")
 
     print("[TRAIN] Training finished.")
 
