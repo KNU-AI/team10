@@ -30,6 +30,7 @@ def process_forest_fire_dataset():
     test_src = os.path.join(BASE_RAW_DIR, "forest-fire-dataset", "Forest Fire Dataset", "Testing")
 
     fire_files = glob(os.path.join(train_fire_src, "*.jpg"))
+    fire_files = fire_files[:len(fire_files) // 5]
     normal_files = glob(os.path.join(train_normal_src, "*.jpg"))
     test_files = glob(os.path.join(test_src, "*.jpg"))
 
